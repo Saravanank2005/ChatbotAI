@@ -146,10 +146,10 @@ We applied a split layout with custom CSS to support beautiful gauges, color-cod
 
 ```css
 /* Custom CSS is used to inject: */
-/* - Success greens for matching skills pills */
-/* - Alert/Warning reds for missing skills pills */
-/* - Dark radial background matching premium glassmorphic standards */
-/* - Translucent headers, inputs, and buttons */
+/* - High-contrast dark greens/reds for matching/missing skills pills */
+/* - Soft light radial background gradient with subtle indigo/purple reflections */
+/* - Clean white container cards with drop shadows and minimal border highlights */
+/* - Legible slate color tokens for primary text and instructions */
 ```
 
 ---
