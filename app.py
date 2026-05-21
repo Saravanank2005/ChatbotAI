@@ -180,12 +180,12 @@ def chat_response(message, history, resume_text, required_skills, model_dropdown
     except Exception as e:
         return f"Error calling Gemini: {e}"
 
-# Custom styling with Light Theme and modern colors
+# Custom styling with Light Theme and modern colors (forced light mode)
 custom_css = """
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
-/* Style root variables for Gradio elements - Light Theme */
-:root, .gradio-container {
+/* Style root variables for Gradio elements - Forced Light Theme */
+:root, .gradio-container, .dark, .dark .gradio-container {
     --body-background-fill: radial-gradient(circle at top right, rgba(99, 102, 241, 0.05), transparent 45%),
                             radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.05), transparent 45%),
                             #f8fafc !important;
@@ -229,12 +229,33 @@ custom_css = """
     --message-bot-border-width: 1px !important;
 }
 
-body, .gradio-container, input, button, textarea, select {
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
+/* Force light backgrounds globally */
+body, html, .dark, .dark body, .dark html {
+    background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.05), transparent 45%),
+                radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.05), transparent 45%),
+                #f8fafc !important;
+}
+
+.gradio-container, .dark .gradio-container {
+    background: transparent !important;
+}
+
+/* Ensure text contrast on light mode */
+h1, h2, h3, h4, h5, h6, p, span, label,
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6, .dark p, .dark span, .dark label,
+.dark .block-title, .dark .block-label {
+    color: #1e293b !important;
+}
+
+/* Header title gradient */
+#header-container h1, .dark #header-container h1 {
+    background: linear-gradient(135deg, #4f46e5 10%, #7c3aed 50%, #db2777 90%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
 }
 
 /* Header container styling */
-#header-container {
+#header-container, .dark #header-container {
     margin-bottom: 1.5rem !important;
     padding: 1.2rem 1.5rem !important;
     background: rgba(255, 255, 255, 0.8) !important;
@@ -242,6 +263,17 @@ body, .gradio-container, input, button, textarea, select {
     border: 1px solid rgba(0, 0, 0, 0.06) !important;
     border-radius: 20px !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Maintain white text for primary buttons */
+button.primary, button.primary *, 
+.dark button.primary, .dark button.primary * {
+    color: #ffffff !important;
+}
+
+/* Maintain white text inside user message bubbles */
+.message.user, .message.user *, .dark .message.user, .dark .message.user * {
+    color: #ffffff !important;
 }
 
 /* Adjust primary buttons */
