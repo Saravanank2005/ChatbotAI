@@ -456,7 +456,7 @@ input[type=range] { accent-color: #6366f1 !important; }
 # ══════════════════════════════════════════════════════════════════════════════
 #  UI Layout
 # ══════════════════════════════════════════════════════════════════════════════
-with gr.Blocks(title="NaanChalant AI — Resume ATS Analyzer", css=CSS) as demo:
+with gr.Blocks(title="NaanChalant AI — Resume ATS Analyzer") as demo:
     resume_text_state      = gr.State("")
     required_skills_state  = gr.State("")
 
@@ -641,13 +641,13 @@ with gr.Blocks(title="NaanChalant AI — Resume ATS Analyzer", css=CSS) as demo:
             fn=chat_response,
             chatbot=chatbot,
             additional_inputs=[resume_text_state, required_skills_state, model_dropdown, temperature_slider],
-            submit_btn="Send",
             textbox=gr.Textbox(
                 placeholder="Ask me to improve your resume…",
                 show_label=False,
                 lines=1,
                 max_lines=4,
-                elem_id="chat-input-box"
+                elem_id="chat-input-box",
+                submit_btn="Send"
             )
         )
 
@@ -666,6 +666,7 @@ if __name__ == "__main__":
     demo.launch(
         server_name="0.0.0.0",
         server_port=7860,
+        css=CSS,
         theme=gr.themes.Soft(
             primary_hue="indigo",
             secondary_hue="violet",
