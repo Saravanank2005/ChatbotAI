@@ -117,7 +117,7 @@ def ask_agent(query, api_key=None):
         retrieved_docs = search_notes(query)
         context = "\n".join(retrieved_docs)
 
-        prompt = f"""You are EchoMind Agent, a helpful assistant.
+        prompt = f"""You are NaanChalant AI Agent, a helpful assistant.
 You have access to the user's personal notes below.
 
 Retrieved Notes (use these if relevant to the question):
@@ -139,6 +139,27 @@ User Question:
 # GLOBAL CHATBOT (No context limitation)
 # =========================
 
+def extract_text(content):
+    if isinstance(content, str):
+        return content
+    elif isinstance(content, list):
+        text_parts = []
+        for part in content:
+            if isinstance(part, dict):
+                if "text" in part:
+                    text_parts.append(part["text"])
+                elif "content" in part:
+                    text_parts.append(extract_text(part["content"]))
+            elif isinstance(part, str):
+                text_parts.append(part)
+        return "".join(text_parts)
+    elif isinstance(content, dict):
+        if "text" in content:
+            return extract_text(content["text"])
+        elif "content" in content:
+            return extract_text(content["content"])
+    return str(content) if content is not None else ""
+
 def chat_with_gemini(messages, api_key=None, model_name='gemini-2.5-flash', temperature=0.7):
     """
     Sends a conversation history list to Gemini and returns the response.
@@ -152,7 +173,8 @@ def chat_with_gemini(messages, api_key=None, model_name='gemini-2.5-flash', temp
 
     try:
         # Search relevant notes if available
-        last_query = messages[-1]['content'] if messages else ""
+        raw_last_query = messages[-1]['content'] if messages else ""
+        last_query = extract_text(raw_last_query)
         try:
             retrieved_docs = search_notes(last_query) if last_query else []
             context = "\n".join(retrieved_docs)
@@ -160,7 +182,7 @@ def chat_with_gemini(messages, api_key=None, model_name='gemini-2.5-flash', temp
             print(f"RAG search error (ignored): {e}")
             context = ""
 
-        system_instruction = f"""You are EchoMind AI, a premium conversational assistant.
+        system_instruction = f"""You are NaanChalant AI, a premium conversational assistant.
 You have semantic access to the user's local notes (simulating MCP file access).
 
 Relevant retrieved snippets from local notes:
@@ -183,9 +205,10 @@ Guidelines:
         contents = []
         for msg in messages:
             role = 'user' if msg['role'] == 'user' else 'model'
+            msg_content = extract_text(msg['content'])
             contents.append({
                 'role': role,
-                'parts': [msg['content']]
+                'parts': [msg_content]
             })
 
         response = model.generate_content(contents)
@@ -199,7 +222,7 @@ Guidelines:
 # =========================
 
 if __name__ == "__main__":
-    print("\n--- EchoMind Global Agent CLI ---")
+    print("\n--- NaanChalant AI Global Agent CLI ---")
     
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key or api_key == "YOUR_GEMINI_API_KEY":

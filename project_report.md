@@ -1,10 +1,10 @@
-# 🔮 Technical Project Report: EchoMind AI Hub
+# 🔮 Technical Project Report: NaanChalant AI Hub
 **A Semantic RAG Agent Simulating MCP Local File Retrieval Powered by Google Gemini API**
 
 ---
 
 ## 1. Executive Summary
-**EchoMind AI Hub** is a premium, multi-turn global conversational assistant implementing **Retrieval-Augmented Generation (RAG)**. The project is designed to simulate **Model Context Protocol (MCP)** local file access, allowing an LLM to dynamically retrieve context from local text databases on a per-query basis. 
+**NaanChalant AI Hub** is a premium, multi-turn global conversational assistant implementing **Retrieval-Augmented Generation (RAG)**. The project is designed to simulate **Model Context Protocol (MCP)** local file access, allowing an LLM to dynamically retrieve context from local text databases on a per-query basis. 
 
 The application is powered by the **Google Gemini API** (`gemini-2.5-flash`), built with **LangChain**, indexed using a client-side **ChromaDB** vector store, and exposed via an elegant **Gradio 6.0** web dashboard styled with custom glassmorphic aesthetics.
 
@@ -12,7 +12,7 @@ The application is powered by the **Google Gemini API** (`gemini-2.5-flash`), bu
 
 ## 2. System Architecture
 
-The EchoMind AI Hub is split into three core layers:
+The NaanChalant AI Hub is split into three core layers:
 1. **Data Ingestion & Embedding Pipeline**: Converts raw text notes into semantic vectors.
 2. **Vector Retrieval & Contextualization Layer**: Performs real-time cosine similarity search to retrieve relevant documents.
 3. **LLM Generation & Interactive Interface**: Maps conversational history, dynamically injects system prompts, and renders the frontend.
@@ -128,7 +128,7 @@ The project utilizes **ChromaDB** in memory to store text metadata.
 Retrieved documents are injected dynamically into the model's `system_instruction` at the initialization stage of each generation call. The instruction includes rules for hybrid grounding:
 
 ```python
-system_instruction = f"""You are EchoMind AI, a premium conversational assistant.
+system_instruction = f"""You are NaanChalant AI, a premium conversational assistant.
 You have semantic access to the user's local notes (simulating MCP file access).
 
 Relevant retrieved snippets from local notes:
@@ -174,7 +174,7 @@ import sys
 if any("streamlit" in arg for arg in sys.argv) or "streamlit" in sys.modules:
     try:
         import streamlit as st
-        st.error("⚠️ **EchoMind has been migrated to Gradio!**")
+        st.error("⚠️ **NaanChalant AI has been migrated to Gradio!**")
         st.info("Please do not run this script with `streamlit run app.py`.")
         st.stop()
     except Exception:

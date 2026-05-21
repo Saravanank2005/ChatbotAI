@@ -14,3 +14,6 @@ __pycache__/
 # ChromaDB persistence/caches
 .chroma/
 .gradio/
+
+# Nested Hugging Face Space clone
+ChatbotAI/
