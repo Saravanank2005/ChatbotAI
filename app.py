@@ -95,24 +95,24 @@ def perform_analysis(resume_file, required_skills):
         
     score_html = f"""
     <div style='text-align: center; margin: 15px 0;'>
-        <div style='display: inline-block; width: 140px; height: 140px; border-radius: 50%; border: 10px solid rgba(255,255,255,0.05); border-top-color: {score_color}; position: relative; box-shadow: 0 4px 20px rgba(0,0,0,0.2);'>
-            <div style='position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2.2rem; font-weight: 800; font-family: "Outfit", sans-serif; color: #ffffff;'>{score}%</div>
+        <div style='display: inline-block; width: 140px; height: 140px; border-radius: 50%; border: 10px solid rgba(0,0,0,0.05); border-top-color: {score_color}; position: relative; box-shadow: 0 10px 25px rgba(99, 102, 241, 0.1);'>
+            <div style='position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2.2rem; font-weight: 800; font-family: "Outfit", sans-serif; color: #0f172a;'>{score}%</div>
         </div>
-        <h3 style='margin: 10px 0 0 0; font-family: "Outfit", sans-serif; font-size: 1.2rem; color: #ffffff;'>ATS Compatibility Score</h3>
+        <h3 style='margin: 10px 0 0 0; font-family: "Outfit", sans-serif; font-size: 1.2rem; color: #1e293b;'>ATS Compatibility Score</h3>
     </div>
     """
     
     # Matching skills tags HTML
     if matching:
-        matching_html = "".join([f"<span style='display: inline-block; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; margin: 4px; font-weight: 500;'>{s}</span>" for s in matching])
+        matching_html = "".join([f"<span style='display: inline-block; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); color: #047857; padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; margin: 4px; font-weight: 600;'>{s}</span>" for s in matching])
     else:
-        matching_html = "<span style='color: #94a3b8; font-size: 0.9rem;'>No matching skills identified.</span>"
+        matching_html = "<span style='color: #64748b; font-size: 0.9rem;'>No matching skills identified.</span>"
         
     # Missing skills tags HTML
     if missing:
-        missing_html = "".join([f"<span style='display: inline-block; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #f87171; padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; margin: 4px; font-weight: 500;'>{s}</span>" for s in missing])
+        missing_html = "".join([f"<span style='display: inline-block; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); color: #b91c1c; padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; margin: 4px; font-weight: 600;'>{s}</span>" for s in missing])
     else:
-        missing_html = "<span style='color: #10b981; font-size: 0.9rem; font-weight: 600;'>🎉 No missing skills! Outstanding match.</span>"
+        missing_html = "<span style='color: #047857; font-size: 0.9rem; font-weight: 600;'>🎉 No missing skills! Outstanding match.</span>"
         
     # Formatting bullet lists
     if formatting:
@@ -180,45 +180,52 @@ def chat_response(message, history, resume_text, required_skills, model_dropdown
     except Exception as e:
         return f"Error calling Gemini: {e}"
 
-# Custom styling with Dark Glassmorphism and modern colors
+# Custom styling with Light Theme and modern colors
 custom_css = """
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
-/* Style root variables for Gradio elements */
+/* Style root variables for Gradio elements - Light Theme */
 :root, .gradio-container {
-    --body-background-fill: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent 45%),
-                            radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.15), transparent 45%),
-                            #0b0f19 !important;
-    --container-background-fill: rgba(17, 24, 39, 0.45) !important;
-    --block-background-fill: rgba(17, 24, 39, 0.3) !important;
-    --block-border-color: rgba(255, 255, 255, 0.08) !important;
+    --body-background-fill: radial-gradient(circle at top right, rgba(99, 102, 241, 0.05), transparent 45%),
+                            radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.05), transparent 45%),
+                            #f8fafc !important;
+    --container-background-fill: rgba(255, 255, 255, 0.75) !important;
+    --block-background-fill: rgba(255, 255, 255, 0.6) !important;
+    --block-border-color: rgba(0, 0, 0, 0.06) !important;
     --block-border-width: 1px !important;
-    --border-color-primary: rgba(255, 255, 255, 0.08) !important;
-    --border-color-secondary: rgba(255, 255, 255, 0.05) !important;
+    --border-color-primary: rgba(0, 0, 0, 0.06) !important;
+    --border-color-secondary: rgba(0, 0, 0, 0.04) !important;
     
-    --input-background-fill: rgba(15, 23, 42, 0.6) !important;
-    --input-border-color: rgba(255, 255, 255, 0.08) !important;
-    --input-border-color-focus: #818cf8 !important;
-    --input-placeholder-color: #64748b !important;
+    --input-background-fill: #ffffff !important;
+    --input-border-color: rgba(0, 0, 0, 0.1) !important;
+    --input-border-color-focus: #6366f1 !important;
+    --input-placeholder-color: #94a3b8 !important;
     
-    --button-primary-background-fill: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
-    --button-primary-background-fill-hover: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%) !important;
+    --button-primary-background-fill: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+    --button-primary-background-fill-hover: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%) !important;
     --button-primary-text-color: #ffffff !important;
     
-    --button-secondary-background-fill: rgba(51, 65, 85, 0.5) !important;
-    --button-secondary-background-fill-hover: rgba(71, 85, 105, 0.7) !important;
-    --button-secondary-text-color: #f1f5f9 !important;
+    --button-secondary-background-fill: rgba(241, 245, 249, 0.8) !important;
+    --button-secondary-background-fill-hover: rgba(226, 232, 240, 0.9) !important;
+    --button-secondary-text-color: #334155 !important;
     
+    /* Text Color Tokens */
+    --body-text-color: #1e293b !important;
+    --body-text-color-subdued: #64748b !important;
+    --block-title-text-color: #0f172a !important;
+    --block-label-text-color: #334155 !important;
+    --slider-color: #6366f1 !important;
+
     /* Chatbot Bubble Colors */
     --chatbot-body-background-color: transparent !important;
-    --message-user-background-color: #4f46e5 !important;
+    --message-user-background-color: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%) !important;
     --message-user-text-color: #ffffff !important;
     --message-user-border-color: rgba(99, 102, 241, 0.2) !important;
     --message-user-border-width: 1px !important;
     
-    --message-bot-background-color: rgba(30, 41, 59, 0.7) !important;
-    --message-bot-text-color: #f1f5f9 !important;
-    --message-bot-border-color: rgba(255, 255, 255, 0.08) !important;
+    --message-bot-background-color: #ffffff !important;
+    --message-bot-text-color: #1e293b !important;
+    --message-bot-border-color: rgba(0, 0, 0, 0.06) !important;
     --message-bot-border-width: 1px !important;
 }
 
@@ -230,11 +237,11 @@ body, .gradio-container, input, button, textarea, select {
 #header-container {
     margin-bottom: 1.5rem !important;
     padding: 1.2rem 1.5rem !important;
-    background: rgba(17, 24, 39, 0.45) !important;
-    backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
     border-radius: 20px !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03) !important;
 }
 
 /* Adjust primary buttons */
@@ -243,7 +250,7 @@ button.primary {
 }
 button.primary:hover {
     transform: translateY(-1px) !important;
-    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4) !important;
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.2) !important;
 }
 button.primary:active {
     transform: translateY(0) !important;
